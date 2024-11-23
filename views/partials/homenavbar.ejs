@@ -1,0 +1,15 @@
+<nav class="navbar navbar-expand navbar-lg navbar-light bg-primary">
+    <a href="/" class="nav-brand">
+      <img src="/img/logo_fukuta.png" height="30px">
+   </a>
+   <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+         <a class="nav-link text-light" href="/">Home</a>
+      </li>
+      <% categories.forEach(category => {  %>
+         <li class="nav-item">
+            <a class="nav-link text-light" href="/category/<%= category.slug %>"><%= category.title %></a>
+         </li>
+      <% }) %>
+   </ul>
+</nav>

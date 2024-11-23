@@ -1,0 +1,50 @@
+<%- include('../../partials/header.ejs') %>
+<%- include('../../partials/navbar.ejs') %>
+
+<div class="container">
+    <hr>
+    <h2>Categorias</h2>
+    <a class="btn btn-primary" href="/admin/categories/new">Nova Categoria</a>
+    <hr>
+    <table class="table table-sm table-striped">
+        <thead>
+            <tr style="text-align: center;">
+                <th>ID</th>
+                <th>Título</th>
+                <th>Slug</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <% categories.forEach(category => { %>
+                    <tr>
+                        <th><%= category.id %></th>
+                        <th><%= category.title %></th>
+                        <th><%= category.slug %></th>
+                        <th>
+                        <a href="/admin/categories/edit/<%= category.id %>" class="btn btn-warning btn-sm">Editar</a>
+                        <form method="POST" action="/admin/categories/delete" style="display:inline;" onsubmit="ConfirmaExclusao(event, this)">
+                              <input type="hidden" name="id" value="<%= category.id %>">
+                              <button class="btn btn-danger btn-sm">Deletar</button>
+                        </form>
+                        </th>
+                    </tr>
+                <% }) %>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<%- include('../../partials/footer.ejs') %>
+
+
+<script>
+    function ConfirmaExclusao(event, form){
+        event.preventDefault(); // impede que o formulario seja submetido ou enviado
+        var decision = confirm("Deseja a exclusão desta categoria ?");
+        if(decision){
+            form.submit();
+        }
+    }
+</script>

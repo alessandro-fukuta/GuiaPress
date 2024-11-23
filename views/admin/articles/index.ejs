@@ -1,0 +1,53 @@
+<%- include('../../partials/header.ejs') %>
+<%- include('../../partials/navbar.ejs') %>
+
+<div class="container">
+    <hr>
+    <h2>Artigos</h2>
+    <a class="btn btn-primary" href="/admin/articles/new">Novo Artigo</a>
+    <hr>
+    <table class="table table-sm table-striped">
+        <thead>
+            <tr style="text-align: center;">
+                <th>ID</th>
+                <th>Título</th>
+                <th>Slug</th>
+                <th>Categoria</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <% articles.forEach(article => { %>
+                    <tr>
+                        <th><%= article.id %></th>
+                        <th><%= article.title %></th>
+                        <th><%= article.slug %></th>
+                        <th><%= article.category.title %></th>
+                        <th>
+                            <a href="/admin/articles/edit/<%= article.id %>" class="btn btn-warning btn-sm">Editar</a>
+                            <form method="POST" action="/articles/delete" style="display:inline;" onsubmit="ConfirmaExclusao(event, this)">
+                                <input type="hidden" name="id" value="<%= article.id %>">
+                                <button class="btn btn-danger btn-sm">Deletar</button>
+                            </form>
+                        </th>
+                        
+                    </tr>
+                <% }) %>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<%- include('../../partials/footer.ejs') %>
+
+
+<script>
+    function ConfirmaExclusao(event, form){
+        event.preventDefault(); // impede que o formulario seja submetido ou enviado
+        var decision = confirm("Deseja a exclusão deste artigo ?");
+        if(decision){
+            form.submit();
+        }
+    }
+</script>
